@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { ThemeToggle } from '../Theme/ThemeToggle';
 import { Typography } from '../ui/typography';
 import Image from 'next/image';
-
+import AuthButton from '@/features/auth/AuthButton';
 export function Header() {
   return (
     <header className="bg-background sticky top-0 z-40 w-full border-b">
@@ -18,6 +18,7 @@ export function Header() {
 
         <div className="flex flex-1 items-center justify-end space-x-4">
           <nav className="flex items-center space-x-1">
+            <AuthButton />
             <ThemeToggle />
           </nav>
         </div>
