@@ -2,5 +2,5 @@
 
 export const SiteConfig = {
   title: 'JustCode',
-  description: 'You JUST need to CODE.',
+  description: 'You JUST need to CODE. BAMBA',
 } as const;
