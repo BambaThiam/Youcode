@@ -1,15 +1,12 @@
-
-import prisma from '@/lib/prisma';
-import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth, { AuthOptions } from 'next-auth';
-import GithubProvider from 'next-auth/providers/github';
-import GoogleProvider from 'next-auth/providers/google';
 import { env } from '@/lib/env';
-
-
+import prisma from '@/lib/prisma';
+import { PrismaAdapter } from '@auth/prisma-adapter';
+import NextAuth, { AuthOptions } from 'next-auth';
+import { Adapter } from 'next-auth/adapters';
+import GithubProvider from 'next-auth/providers/github';
 
 export const authOptions: AuthOptions = {
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(prisma) as Adapter,
   theme: {
     logo: '/images/logo-text.png',
   },
@@ -17,13 +14,7 @@ export const authOptions: AuthOptions = {
     GithubProvider({
       clientId: env.GITHUB_ID,
       clientSecret: env.GITHUB_SECRET,
-      // clientId: process.env.GITHUB_ID as string,
-      // clientSecret: process.env.GITHUB_SECRET as string,
     }),
-    // GoogleProvider({
-    //   clientId: env.GOOGLE_ID,
-    //   clientSecret: env.GOOGLE_SECRET,
-    // }),
   ],
   callbacks: {
     session({ session, user }) {

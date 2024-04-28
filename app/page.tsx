@@ -1,7 +1,13 @@
+import { Card } from '@/components/ui/card'
 import React from 'react'
+
 const page = () => {
   return (
-    <div>page</div>
+    <div>
+      <Card>
+        <h1>page</h1>
+      </Card>
+    </div>
   )
 }
 

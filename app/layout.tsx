@@ -1,7 +1,7 @@
 // app/layout.
 import { Footer } from '@/components/layout/Footer';
 import { Header } from '@/components/layout/Header';
-import { TailwindIndicator } from '@/components/utils/TailwindIndicator';
+import { TailwindIndicator } from '@/utils/TailwindIndicator';
 import { SiteConfig } from '@/lib/site-config';
 import { cn } from '@/lib/utils';
 import type { Metadata } from 'next';
@@ -9,6 +9,7 @@ import { Inter } from 'next/font/google';
 import { PropsWithChildren } from 'react';
 import { Providers } from './Providers';
 import './globals.css';
+
 
 const fontSans = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
