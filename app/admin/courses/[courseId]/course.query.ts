@@ -46,6 +46,7 @@ export const getCourse = async (
       }
     }
   )
+
   const users = courses?.users.map((user) => {
       return {
        canceled : user.canceledAt ? true : false,
@@ -55,7 +56,7 @@ export const getCourse = async (
 
     return {
       ...courses,
-      users
+      users,
     }
 
 }
