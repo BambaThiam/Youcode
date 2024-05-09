@@ -1,6 +1,8 @@
 import { GetServerSidePropsContext, NextApiRequest, NextApiResponse } from 'next';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '../../pages/api/auth/[...nextauth]';
+import { NotAuthenticatedCard } from '@/components/features/errors/NotAuthentificatedCard';
+
 
 type ParametersGetServerSession =
   | []
@@ -12,7 +14,8 @@ export const getAuthSession = async (...parameters: ParametersGetServerSession) 
   return session;
 };
 
-export const getRequiredAuthSession = async (...parameters: ParametersGetServerSession) => {
+export const getRequiredAuthSession = async (...parameters: ParametersGetServerSession
+  ) => {
   const session = await getServerSession(...parameters, authOptions);
   if (!session?.user.id) {
     throw new Error('Unauthorized');
