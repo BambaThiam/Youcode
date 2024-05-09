@@ -45,12 +45,9 @@ const CourseLessonsPage = async ({params}: {params: {courseId: string}}) => {
                       <AvatarImage src={lesson.rank} alt={lesson.name ?? ""} />
                     )}
                   </Avatar>
-                  
-                    
+
                       {/* {lesson.name} */}
                       <LessonItem key={lesson.id} lesson={lesson} />
-                    
-                  
                 </div>
               </Link>
             ))}
