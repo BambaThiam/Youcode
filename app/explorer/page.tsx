@@ -5,10 +5,7 @@ import {
   LayoutTitle,
 } from '@/components/layout/layout';
 import { getCourses } from '../admin/courses/course.query';
-import { CourseCard } from '../admin/courses/CourseCard';
-import Link from 'next/link';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Typography } from '@/components/ui/Typography';
+import { CourseCard } from '../courses/CourseCard';
 
 
 const ExplorerPage = async () => {

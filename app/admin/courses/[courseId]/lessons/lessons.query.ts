@@ -1,4 +1,5 @@
 import prisma from "@/lib/prisma";
+import { Prisma } from "@prisma/client";
 
 export const getCourseLessons = async (
   {
@@ -34,10 +35,26 @@ export const getCourseLessons = async (
       select: {
         id: true,
         name: true,
-        lessons: true,
+        lessons: {
+          orderBy: {
+            rank: 'asc',
+          },
+          select: {
+            id: true,
+            name: true,
+            content: true,
+            state: true,
+            courseId: true,
+            rank: true,
+          }
+        }
       }
     }
     
   )
   // return lessons
 }
+
+export type AdminLessonItemType = NonNullable<
+  Prisma.PromiseReturnType<typeof getCourseLessons>
+>['lessons'][number];

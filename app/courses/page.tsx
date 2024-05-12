@@ -4,17 +4,18 @@ import {
   LayoutHeader,
   LayoutTitle,
 } from '@/components/layout/layout';
-import { getCourses } from '../admin/courses/course.query';
-import { CourseCard } from '../admin/courses/CourseCard';
+
+import { CourseCard } from './CourseCard';
 import Link from 'next/link';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Typography } from '@/components/ui/Typography';
 import { getAuthSession } from '@/lib/auth';
 import { notFound } from 'next/navigation';
 import { NotAuthenticatedCard } from '@/components/features/errors/NotAuthentificatedCard';
+import { getCourses } from './courses.query';
 
 
-const MyCoursesPage = async () => {
+const CoursesPage = async () => {
   const session = await getAuthSession()
   if (!session?.user.id) {
     return <NotAuthenticatedCard />;
@@ -35,4 +36,4 @@ const MyCoursesPage = async () => {
   )
 }
 
-export default MyCoursesPage
+export default CoursesPage

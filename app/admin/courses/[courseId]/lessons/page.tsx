@@ -8,7 +8,7 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { notFound } from 'next/navigation';
-import LessonItem from './LessonItem';
+import LessonItem from './AdminLessonItem';
 import { getCourseLessons } from './lessons.query';
 import Link from 'next/link';
 

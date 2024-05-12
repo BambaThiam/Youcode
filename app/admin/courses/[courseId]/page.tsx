@@ -7,7 +7,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import {getRequiredAuthSession } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
-import { getAdminCourse } from './course.query'
+import { getAdminCourse } from './adminCourse.query'
 import { buttonVariants } from '@/components/ui/button'
 import { CoursePaginationButton } from '@/components/features/pagination/PaginationButton'
 
