@@ -8,12 +8,12 @@ import {
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getRequiredAuthSession } from '@/lib/auth';
 import { notFound } from 'next/navigation';
-import LessonItem from './AdminLessonItem';
 import { getCourseLessons } from './lessons.query';
 import Link from 'next/link';
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Typography } from '@/components/ui/Typography'
+import { AdminLessonItem } from './AdminLessonItem';
 
 const CourseLessonsPage = async ({params}: {params: {courseId: string}}) => {
   const session = await getRequiredAuthSession()
@@ -47,7 +47,7 @@ const CourseLessonsPage = async ({params}: {params: {courseId: string}}) => {
                   </Avatar>
 
                       {/* {lesson.name} */}
-                      <LessonItem key={lesson.id} lesson={lesson} />
+                      <AdminLessonItem key={lesson.id} lesson={lesson} />
                 </div>
               </Link>
             ))}
