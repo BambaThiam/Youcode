@@ -17,9 +17,9 @@ const CoursePage = async ({params, searchParams} : {params: {courseId: string}; 
   console.log({ page });
   const session = await getRequiredAuthSession()
 
-  const course = await getAdminCourse({courseId: params.courseId, userId: session.user.id, userPage: page})
+  const courseLesson = await getAdminCourse({courseId: params.courseId, userId: session.user.id, userPage: page})
 
-  console.log(course)
+  console.log(courseLesson)
   
   return (
     <Layout>
@@ -38,7 +38,7 @@ const CoursePage = async ({params, searchParams} : {params: {courseId: string}; 
                 <TableHead>Name</TableHead>
               </TableHeader>
               <TableBody>
-                {course.users?.map((user) => (
+                {courseLesson.users?.map((user) => (
                   <TableRow>
                     <TableCell>
                       <Avatar className="rounded">
@@ -62,27 +62,27 @@ const CoursePage = async ({params, searchParams} : {params: {courseId: string}; 
               </TableBody>
             </Table>
             <CoursePaginationButton
-              baseUrl={`/admin/courses/${course.id}`}
+              baseUrl={`/admin/courses/${courseLesson.id}`}
               page={page}
-              totalPage={course._count?.users ?? 0 / 5}
+              totalPage={courseLesson._count?.users ?? 0 / 5}
             />
           </CardContent>
         </Card>
         <Card className="flex-1">
           <CardHeader className="flex-row items-center gap-4 space-y-0">
             <Avatar className="rounded">
-              <AvatarFallback>{course.name?.[0]}</AvatarFallback>
-              {course.image && (
-                <AvatarImage src={course.image} alt={course.name ?? ''} />
+              <AvatarFallback>{courseLesson.name?.[0]}</AvatarFallback>
+              {courseLesson.image && (
+                <AvatarImage src={courseLesson.image} alt={courseLesson.name ?? ''} />
               )}
             </Avatar>
-            <CardTitle>{course.name}</CardTitle>
+            <CardTitle>{courseLesson.name}</CardTitle>
           </CardHeader>
           <CardContent className="flex flex-col gap-1">
-            <Typography>{course._count?.users} users</Typography>
-            <Typography>{course._count?.lessons} lessons</Typography>
+            <Typography>{courseLesson._count?.users} users</Typography>
+            <Typography>{courseLesson._count?.lessons} lessons</Typography>
             <Link
-              href={`/admin/courses/${course.id}/edit`}
+              href={`/admin/courses/${courseLesson.id}/edit`}
               className={buttonVariants({
                 variant: 'outline',
               })}
@@ -90,7 +90,7 @@ const CoursePage = async ({params, searchParams} : {params: {courseId: string}; 
               Edit
             </Link>{' '}
             <Link
-              href={`/admin/courses/${course.id}/lessons`}
+              href={`/admin/courses/${courseLesson.id}/lessons`}
               className={buttonVariants({
                 variant: 'outline',
               })}
