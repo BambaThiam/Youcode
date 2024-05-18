@@ -21,8 +21,11 @@ import { Typography } from '@/components/ui/Typography';
 import { getRequiredAuthSession } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
+import { notFound, redirect } from 'next/navigation';
 import { z } from 'zod';
+import { CourseFormSchema } from './course.schema';
+import { SubmitButton } from '@/components/form/SubmitButton';
+
 
 const page = async ({params} : {params: {courseId: string}}) => {
   const session = await getRequiredAuthSession();
@@ -30,8 +33,18 @@ const page = async ({params} : {params: {courseId: string}}) => {
     where: {
       id: params.courseId,
       creatorId: session.user.id
+    },
+    select: {
+      id: true,
+      image: true,
+      name: true,
+      presentation: true
     }
   })
+
+  if(!course) {
+    notFound()
+  }
   return (
     <Layout>
       <LayoutHeader>
@@ -40,21 +53,43 @@ const page = async ({params} : {params: {courseId: string}}) => {
       <LayoutContent>
       <Card className="bg-background">
           <CardContent className="mt-6">
-        <form action={async (formData) => {
-          'use server';
+        <form action= { async (formData: FormData ) => {
+          "use server"
           const userSession = await getRequiredAuthSession();
-          await prisma.course.update({
+
+          const image = formData.get('image');
+          const name = formData.get('name');
+          const presentation = formData.get('presentation');
+        
+          const safeData = CourseFormSchema.safeParse({
+            image,
+            name,
+            presentation
+          });
+         
+          if (!safeData.success) {
+            const searchParams = new URLSearchParams();
+            searchParams.set(
+              'error',
+              'Invalid data. Image must be an URL and name must be between 3 and 40 characters.'
+            );
+            redirect(`/admin/courses/${params.courseId}/edit?${searchParams.toString()}`);
+          }
+        
+           await prisma.course.update({
             where: {
               id: params.courseId,
               creatorId: userSession.user.id
+        
             },
-            data: {
-              name: formData.get('name') as string,
-              image: formData.get('image') as string,
-              presentation: formData.get('presentation') as string
-            }
+            data: safeData.data
           })
-        } }>
+
+          revalidatePath(`/admin/courses/${params.courseId}/edit`)
+          redirect(`/admin/courses/${params.courseId}`)
+
+         
+         }}>
           <div className="flex flex-col gap-1 mb-4">
             <Label htmlFor="image">Image URL</Label>
             <Input defaultValue={course?.image} name="image" id="image" />
@@ -83,7 +118,7 @@ const page = async ({params} : {params: {courseId: string}}) => {
               </SelectContent>
             </Select>
           </div>
-          <Button type="submit">Submit</Button>
+          <SubmitButton type="submit">Submit</SubmitButton>
         </form>
         </CardContent>
         </Card>
@@ -93,3 +128,4 @@ const page = async ({params} : {params: {courseId: string}}) => {
 }
 
 export default page
+
