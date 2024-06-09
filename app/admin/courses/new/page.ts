@@ -6,7 +6,6 @@ import {
   LayoutHeader,
   LayoutTitle,
 } from '@/components/layout/layout';
-import { Typography } from '@/components/ui/Typography';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { buttonVariants } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -18,7 +17,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-
+import { Typography } from '@/components/ui/typography';
 import { getRequiredAuthSession } from '@/lib/auth';
 import prisma from '@/lib/prisma';
 import Link from 'next/link';
